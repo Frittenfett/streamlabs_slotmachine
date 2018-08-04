@@ -1,0 +1,142 @@
+﻿{
+  "output_file": "settings.json",
+  "minimumRounds": {
+    "type": "numberbox",
+    "value": 1,
+    "label": "Minimum Rounds",
+    "tooltip": "",
+    "group": "General"
+  },
+  "maximumRounds": {
+    "type": "numberbox",
+    "value": 10,
+    "label": "Maximum Rounds",
+    "tooltip": "",
+    "group": "General"
+  },
+  "costPerRound": {
+    "type": "numberbox",
+    "value": 1000,
+    "label": "Costs per round",
+    "tooltip": "",
+    "group": "General"
+  },
+  "startJackpot": {
+    "type": "numberbox",
+    "value": 10000,
+    "label": "StartAmount of Jackpot",
+    "tooltip": "",
+    "group": "General"
+  },
+  "provision": {
+    "type": "slider",
+    "value": 25,
+    "min": 0,
+    "max": 50,
+    "ticks": 1,
+    "label": "Provision in %",
+    "tooltip": "How much provision you want to keep per try?",
+    "group": "General"
+  },
+  "cooldown": {
+    "type": "numberbox",
+    "value": 1800,
+    "label": "Global Cooldown",
+    "tooltip": "",
+    "group": "General"
+  },
+  "jackpotFileName": {
+    "type": "textbox",
+    "value": "jackpot.txt",
+    "label": "Jackpot Filename",
+    "tooltip": "Jackpot File Name. File has to be inside plugin itself",
+    "group": "General"
+  },
+  "slotmachineSound": {
+    "type": "textbox",
+    "value": "",
+    "label": "Slotmachine Sound Filename",
+    "tooltip": "Slotmachine Sound File Name. Leave empty to disable. File has to be inside plugin itself!",
+    "group": "General"
+  },
+  "slotmachineSoundVolume": {
+    "type": "slider",
+    "value": 1,
+    "min": 0,
+    "max": 1,
+    "ticks": 0.1,
+    "label": "Sound volumne",
+    "tooltip": "",
+    "group": "General"
+  },
+  "command": {
+    "type": "textbox",
+    "value": "!slotmachine",
+    "label": "Slotmachine command",
+    "tooltip": "Command for everyone to start slotmachine. Default !slotmachine",
+    "group": "Commands"
+  },
+  "commandGive": {
+    "type": "textbox",
+    "value": "!giveSlot",
+    "label": "Give price command",
+    "tooltip": "Command for Caster to give a price. Default !giveSlot. Syntax is !giveSlot <<user>> <<amount>>",
+    "group": "Commands"
+  },
+  "commandReset": {
+    "type": "textbox",
+    "value": "!resetSlot",
+    "label": "Reset Jackpot command",
+    "tooltip": "Command for Caster to reset the whole jackpot. Default !resetSlot",
+    "group": "Commands"
+  },
+  "languageErrorRoundLmit": {
+    "type": "textbox",
+    "value": "Error! The rounds has to be between {0} and {1}!",
+    "label": "languageErrorRoundLmit",
+    "tooltip": "",
+    "group": "Language"
+  },
+  "languageErrorNotEnoughMoney": {
+    "type": "textbox",
+    "value": "You need at least {0} {1} for this command!",
+    "label": "languageErrorNotEnoughMoney",
+    "tooltip": "",
+    "group": "Language"
+  },
+  "languageErrorCooldown": {
+    "type": "textbox",
+    "value": "Slotmachine is still in cooldown. Try again in {0} seconds!",
+    "label": "languageErrorCooldown",
+    "tooltip": "",
+    "group": "Language"
+  },
+  "languageWrongSyntaxOfGiveCommand": {
+    "type": "textbox",
+    "value": "Wrong Syntax! Please use !commandGive <username> <amount>",
+    "label": "languageWrongSyntaxOfGiveCommand",
+    "tooltip": "",
+    "group": "Language"
+  },
+  "languageJackpotTime": {
+    "type": "textbox",
+    "value": "{0} want to spin the slotmachine {1} times for {2} {3}. Jackpot is now {4}!",
+    "label": "languageJackpotTime",
+    "tooltip": "",
+    "group": "Language"
+  },
+  "languageWinning": {
+    "type": "textbox",
+    "value": "{0} just won {1} {2}! PogChamp",
+    "label": "languageWinning",
+    "tooltip": "",
+    "group": "Language"
+  },
+  "languageJackpotRefill": {
+    "type": "textbox",
+    "value": "Jackpot was empty and now refilled with {0} {1}.",
+    "label": "languageJackpotRefill",
+    "tooltip": "",
+    "group": "Language"
+  }
+}
