@@ -38,6 +38,13 @@
     "tooltip": "How much provision you want to keep per try?",
     "group": "General"
   },
+  "enableCooldownOnStartup": {
+    "type": "checkbox",
+    "value": true,
+    "label": "Enable Cooldown on Startup",
+    "tooltip": "Should be the cooldown be enabled on startup?",
+    "group": "General"
+  },
   "cooldown": {
     "type": "numberbox",
     "value": 1800,
@@ -90,6 +97,20 @@
     "tooltip": "Command for Caster to reset the whole jackpot. Default !resetSlot",
     "group": "Commands"
   },
+  "commandEnableCooldown": {
+    "type": "textbox",
+    "value": "!enableSlotCD",
+    "label": "Enable cooldown command",
+    "tooltip": "Command for enable cooldown. Default !enableSlotCD",
+    "group": "Commands"
+  },
+  "commandDisableCooldown": {
+    "type": "textbox",
+    "value": "!disableSlotCD",
+    "label": "Disable cooldown command",
+    "tooltip": "Command for disable cooldown. Default !disableSlotCD",
+    "group": "Commands"
+  },
   "languageErrorRoundLmit": {
     "type": "textbox",
     "value": "Error! The rounds has to be between {0} and {1}!",
@@ -136,6 +157,20 @@
     "type": "textbox",
     "value": "Jackpot was empty and now refilled with {0} {1}.",
     "label": "languageJackpotRefill",
+    "tooltip": "",
+    "group": "Language"
+  },
+  "languageEnableCooldown": {
+    "type": "textbox",
+    "value": "Global cooldown for Slotmachine is enabled. Now you need to wait each {0} seconds each try.",
+    "label": "languageEnableCooldown",
+    "tooltip": "",
+    "group": "Language"
+  },
+  "languageDisableCooldown": {
+    "type": "textbox",
+    "value": "Global cooldown for Slotmachine is disabled. Type {0} as much as you want.",
+    "label": "languageDisableCooldown",
     "tooltip": "",
     "group": "Language"
   }

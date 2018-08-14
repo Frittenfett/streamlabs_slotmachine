@@ -17,14 +17,14 @@ ScriptName = "Slotmachine"
 Website = "https://www.twitch.tv/frittenfettsenpai"
 Description = "Slotmachine Tool for your slotmachine hardware."
 Creator = "frittenfettsenpai"
-Version = "0.5.0"
+Version = "1.0.0"
 
 
 # ---------------------------------------
 #   [Required] Intialize Data (Only called on Load)
 # ---------------------------------------
 def Init():
-    global settings, jackpotAmount, lastRound
+    global settings, jackpotAmount, lastRound, globalCoolDown
     settingsfile = os.path.join(os.path.dirname(__file__), "settings.json")
 
     try:
@@ -35,6 +35,9 @@ def Init():
             "command": "!slotmachine",
             "commandGive": "!giveSlot",
             "commandReset": "!resetSlot",
+            "commandEnableCooldown": "!enableSlotCD",
+            "commandDisableCooldown": "!disableSlotCD",
+            "enableCooldownOnStartup": 1,
             "cooldown": 1800,
             "minimumRounds": 1,
             "maximumRounds": 5,
@@ -50,7 +53,9 @@ def Init():
             "languageWrongSyntaxOfGiveCommand": "Wrong Syntax! Please use !commandGive <username> <amount>",
             "languageJackpotTime": "{0} want to spin the slotmachine {1} times for {2} {3}. Jackpot is now {4}!",
             "languageWinning": "{0} just won {1} {2}! PogChamp",
-            "languageJackpotRefill": "Jackpot was empty and is now refilled with {0} {1}."
+            "languageJackpotRefill": "Jackpot was empty and is now refilled with {0} {1}.",
+            "languageEnableCooldown": "Global cooldown for Slotmachine is enabled. Now you need to wait each {0} seconds each try.",
+            "languageDisableCooldown": "Global cooldown for Slotmachine is disabled. Type {0} as much as you want."
         }
 
     jackpotFile = os.path.join(os.path.dirname(__file__), settings['jackpotFileName'])
@@ -62,6 +67,7 @@ def Init():
         jackpotAmount = settings["startJackpot"]
         SetJackpot(jackpotAmount)
     lastRound = 0
+    globalCoolDown = int(settings["enableCooldownOnStartup"])
     return
 
 
@@ -69,7 +75,7 @@ def Init():
 #   [Required] Execute Data / Process Messages
 # ---------------------------------------
 def Execute(data):
-    global settings, jackpotAmount, lastRound
+    global settings, jackpotAmount, lastRound, globalCoolDown
     if data.IsChatMessage():
         user = data.User
         username = Parent.GetDisplayName(user)
@@ -87,7 +93,7 @@ def Execute(data):
             price = rounds * settings["costPerRound"]
             if (Parent.GetPoints(user) > price):
                 timeDiff = time.time() - lastRound
-                if timeDiff < settings["cooldown"]:
+                if globalCoolDown and timeDiff < settings["cooldown"]:
                     Parent.SendTwitchMessage(settings["languageErrorCooldown"].format(int(settings["cooldown"] - timeDiff)))
                     return
                 Parent.RemovePoints(user, price)
@@ -103,8 +109,7 @@ def Execute(data):
                     soundfile = os.path.join(os.path.dirname(__file__), settings['slotmachineSound'])
                     Parent.PlaySound(soundfile, settings['slotmachineSoundVolume'])
             else:
-                Parent.SendTwitchWhisper(user,
-                                         settings["languageErrorNotEnoughMoney"].format(price, Parent.GetCurrencyName()))
+                Parent.SendTwitchWhisper(user, settings["languageErrorNotEnoughMoney"].format(price, Parent.GetCurrencyName()))
         elif (data.GetParam(0) == settings["commandGive"] and Parent.HasPermission(user, "Caster", "")):
             if data.GetParamCount() < 2:
                 Parent.SendTwitchWhisper(user, settings["languageWrongSyntaxOfGiveCommand"])
@@ -124,6 +129,12 @@ def Execute(data):
         elif (data.GetParam(0) == settings["commandReset"] and Parent.HasPermission(user, "Caster", "")):
             SetJackpot(settings["startJackpot"])
             lastRound = 0
+        elif (data.GetParam(0) == settings["commandEnableCooldown"] and Parent.HasPermission(user, "Caster", "")):
+            globalCoolDown = 1
+            Parent.SendTwitchMessage(settings["languageEnableCooldown"].format(settings["cooldown"]))
+        elif (data.GetParam(0) == settings["commandDisableCooldown"] and Parent.HasPermission(user, "Caster", "")):
+            globalCoolDown = 0
+            Parent.SendTwitchMessage(settings["languageDisableCooldown"].format(settings["command"]))
     return
 
 
