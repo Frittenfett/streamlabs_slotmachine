@@ -17,7 +17,7 @@ ScriptName = "Slotmachine"
 Website = "https://www.twitch.tv/frittenfettsenpai"
 Description = "Slotmachine Tool for your slotmachine hardware."
 Creator = "frittenfettsenpai"
-Version = "1.0.0"
+Version = "1.0.1"
 
 
 # ---------------------------------------
@@ -125,7 +125,7 @@ def Execute(data):
                     giveAmount = jackpotAmount
                 Parent.SendTwitchMessage(settings["languageWinning"].format(giveUsername, giveAmount, Parent.GetCurrencyName()))
                 SetJackpot((jackpotAmount - giveAmount))
-                Parent.AddPoints(user, giveAmount)
+                Parent.AddPoints(giveUsername, giveAmount)
         elif (data.GetParam(0) == settings["commandReset"] and Parent.HasPermission(user, "Caster", "")):
             SetJackpot(settings["startJackpot"])
             lastRound = 0

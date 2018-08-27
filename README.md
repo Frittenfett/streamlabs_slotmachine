@@ -16,4 +16,5 @@ User can trigger the rounds how much time you have to spin. They can win a whole
 
 ### Changelog
 
+* v1.0.1 Give the correct user the bonus LUL
 * v1.0.0 Major Release
