@@ -17,7 +17,7 @@ ScriptName = "Slotmachine"
 Website = "https://www.twitch.tv/frittenfettsenpai"
 Description = "Slotmachine Tool for your slotmachine hardware."
 Creator = "frittenfettsenpai"
-Version = "1.0.1"
+Version = "1.0.2"
 
 
 # ---------------------------------------
@@ -145,13 +145,14 @@ def Tick():
     return
 
 
-def SetJackpot(jackpotAmount):
-    global settings
-    if (jackpotAmount <= 0):
+def SetJackpot(jackpotValue):
+    global settings, jackpotAmount
+    if (jackpotValue <= 0):
         jackpotAmount = settings["startJackpot"]
+        jackpotValue = jackpotAmount
         Parent.SendTwitchMessage(settings["languageJackpotRefill"].format(jackpotAmount, Parent.GetCurrencyName()))
     jackpotFile = os.path.join(os.path.dirname(__file__), settings['jackpotFileName'])
     file = open(jackpotFile, "w")
-    file.write(str(int(jackpotAmount)))
+    file.write(str(int(jackpotValue)))
     file.close()
     return
