@@ -16,6 +16,7 @@ User can trigger the rounds how much time you have to spin. They can win a whole
 
 ### Changelog
 
+* v1.0.3 Remove Streamer CD and fix string cast
 * v1.0.2 Fix reset jackpot bug
 * v1.0.1 Give the correct user the bonus LUL
 * v1.0.0 Major Release

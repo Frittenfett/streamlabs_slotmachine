@@ -17,7 +17,7 @@ ScriptName = "Slotmachine"
 Website = "https://www.twitch.tv/frittenfettsenpai"
 Description = "Slotmachine Tool for your slotmachine hardware."
 Creator = "frittenfettsenpai"
-Version = "1.0.2"
+Version = "1.0.3"
 
 
 # ---------------------------------------
@@ -93,7 +93,7 @@ def Execute(data):
             price = rounds * settings["costPerRound"]
             if (Parent.GetPoints(user) > price):
                 timeDiff = time.time() - lastRound
-                if globalCoolDown and timeDiff < settings["cooldown"]:
+                if globalCoolDown and timeDiff < settings["cooldown"] and Parent.HasPermission(user, "Caster", "") == False:
                     Parent.SendTwitchMessage(settings["languageErrorCooldown"].format(int(settings["cooldown"] - timeDiff)))
                     return
                 Parent.RemovePoints(user, price)
@@ -150,7 +150,7 @@ def SetJackpot(jackpotValue):
     if (jackpotValue <= 0):
         jackpotAmount = settings["startJackpot"]
         jackpotValue = jackpotAmount
-        Parent.SendTwitchMessage(settings["languageJackpotRefill"].format(jackpotAmount, Parent.GetCurrencyName()))
+        Parent.SendTwitchMessage(settings["languageJackpotRefill"].format(str(jackpotAmount), Parent.GetCurrencyName()))
     jackpotFile = os.path.join(os.path.dirname(__file__), settings['jackpotFileName'])
     file = open(jackpotFile, "w")
     file.write(str(int(jackpotValue)))
