@@ -17,7 +17,7 @@ ScriptName = "Slotmachine"
 Website = "https://www.twitch.tv/frittenfettsenpai"
 Description = "Slotmachine Tool for your slotmachine hardware."
 Creator = "frittenfettsenpai"
-Version = "1.0.3"
+Version = "1.0.4"
 
 
 # ---------------------------------------
@@ -32,7 +32,7 @@ def Init():
             settings = json.load(f, encoding="utf-8")
     except:
         settings = {
-            "command": "!slotmachine",
+            "command": "!slot",
             "commandGive": "!giveSlot",
             "commandReset": "!resetSlot",
             "commandEnableCooldown": "!enableSlotCD",
@@ -118,7 +118,10 @@ def Execute(data):
                 giveAmount = str(data.GetParam(2))
                 if "%" in giveAmount:
                     percent = int(giveAmount.replace("%", ""))
-                    giveAmount = int(round(jackpotAmount / 100 * percent))
+                    if percent >= 100:
+                        giveAmount = int(jackpotAmount)
+                    else:
+                        giveAmount = int(round(jackpotAmount / 100 * percent))
                 else:
                     giveAmount = int(giveAmount)
                 if giveAmount > jackpotAmount:
@@ -147,12 +150,12 @@ def Tick():
 
 def SetJackpot(jackpotValue):
     global settings, jackpotAmount
+    jackpotAmount = jackpotValue
     if (jackpotValue <= 0):
         jackpotAmount = settings["startJackpot"]
-        jackpotValue = jackpotAmount
         Parent.SendTwitchMessage(settings["languageJackpotRefill"].format(str(jackpotAmount), Parent.GetCurrencyName()))
     jackpotFile = os.path.join(os.path.dirname(__file__), settings['jackpotFileName'])
     file = open(jackpotFile, "w")
-    file.write(str(int(jackpotValue)))
+    file.write(str(int(jackpotAmount)))
     file.close()
     return
